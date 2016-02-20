@@ -1,0 +1,31 @@
+html
+	head
+		title Grid test
+	link(rel="stylesheet" type="text/css" href="css/grid.css")
+	script(type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js")
+	script(type="text/javascript" src="js/grid.js")
+	body
+		h1 Grid test
+		.buttons
+			button#left left
+			button#right right
+		.grid-container
+			.fixed
+				p This columns is fixed
+			.fluid
+				.element.element-1
+					.photo
+						img(src="http://placehold.it/150x150")
+					p el 1
+				.element.element-2
+					.photo
+						img(src="http://placehold.it/150x150")
+					p el 2
+				.element.element-3
+					.photo
+						img(src="http://placehold.it/150x150")
+					p el 3
+				.element.element-4
+					.photo
+						img(src="http://placehold.it/150x150")
+					p el 4

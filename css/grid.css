@@ -1,0 +1,23 @@
+.grid-container {
+  padding: 14px;
+  border: red 1px solid;
+  display: flex; }
+  .grid-container .fixed {
+    border: green 1px solid;
+    width: 300px; }
+  .grid-container .fluid {
+    padding: 0 7px;
+    display: flex;
+    background-color: aquamarine;
+    max-width: 560px;
+    overflow-x: hidden; }
+    .grid-container .fluid .element {
+      min-width: 250px;
+      min-height: 600px;
+      margin: 0 7px;
+      border: 1px solid blue;
+      padding: 7px; }
+      .grid-container .fluid .element .photo {
+        text-align: center; }
+
+/*# sourceMappingURL=grid.css.map */
