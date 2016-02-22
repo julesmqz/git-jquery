@@ -1,1 +1,57 @@
-<html><head><title>Grid test</title></head><link rel="stylesheet" type="text/css" href="css/grid.css"/><script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script><script type="text/javascript" src="js/grid.js"></script><body><h1>Grid test</h1><div class="buttons"><button id="left">left</button><button id="right">right</button></div><div class="grid-container"><div class="fixed"><p>This columns is fixed</p></div><div class="fluid"><div class="element element-1"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 1</p></div><div class="element element-2"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 2</p></div><div class="element element-3"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 3</p></div><div class="element element-4"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 4</p></div></div></div></body></html>
+<html><head><title>Grid test</title></head><link rel="stylesheet" type="text/css" href="css/grid.css"/><script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script><script type="text/javascript" src="js/grid.js"></script><body><h1>Grid test</h1><div id="cpgrid" class="grid-container"><div class="buttons"><button id="left" disabled="disabled">left</button><button id="right">right</button></div><div class="fixed"><p>This columns is fixed</p></div><div class="fluid"><div class="element element-1"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 1</p><a href="#N" class="prev">prev</a><a href="#N" class="next">next</a></div><div class="element element-2"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 2</p><a href="#N" class="prev">prev</a><a href="#N" class="next">next</a></div><div class="element element-3"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 3</p><a href="#N" class="prev">prev</a><a href="#N" class="next">next</a></div><div class="element element-4"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 4</p><a href="#N" class="prev">prev</a><a href="#N" class="next">next</a></div><div class="element element-5"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 5</p><a href="#N" class="prev">prev</a><a href="#N" class="next">next</a></div><div class="element element-6"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 6</p><a href="#N" class="prev">prev</a><a href="#N" class="next">next</a></div><div class="element element-7"><div class="photo"><img src="http://placehold.it/150x150"/></div><p>el 7</p><a href="#N" class="prev">prev</a><a href="#N" class="next">next</a></div></div></div><script>$(document).ready(function () {
+	var options = {
+		$: $,
+		container: '#cpgrid',
+		fixedContainerWidth: 300,
+		elementWidth: 280,
+		elementMarginLeft: 14,
+		displayElements: 4
+	};
+	var grid = new CPGrid(options);
+
+	$("#left").click(function () {
+		var rightbtn = $("#right");
+		var leftbtn = $(this);
+		grid.move('left', function (moving, canKeepClicking) {
+			console.log('moving ', moving);
+			rightbtn.removeAttr('disabled');
+			if (!canKeepClicking) {
+				leftbtn.attr('disabled', 'disabled');
+			} else {
+				leftbtn.removeAttr('disabled');
+			}
+		});
+
+
+	});
+
+	$("#right").click(function () {
+		var rightbtn = $(this);
+		var leftbtn = $("#left");
+		grid.move('right', function (moving, canKeepClicking) {
+			console.log('moving ', moving, canKeepClicking);
+			leftbtn.removeAttr('disabled');
+			if (!canKeepClicking) {
+				rightbtn.attr('disabled', 'disabled');
+			} else {
+				rightbtn.removeAttr('disabled');
+			}
+		});
+	});
+
+	$('.prev').click(function(){
+		var niuorder = parseInt($(this).attr('data-order'));
+		var actualorder = parseInt($(this).closest('.element').css('order'));
+		console.log(actualorder,niuorder);
+		grid.changeColumn(actualorder,niuorder);
+
+	});
+
+	$('.next').click(function () {
+		var niuorder = parseInt($(this).attr('data-order'));
+		var actualorder = parseInt($(this).closest('.element').css('order'));
+		console.log(actualorder, niuorder);
+		grid.changeColumn(actualorder, niuorder);
+
+	});
+});</script></body></html>

@@ -6,10 +6,10 @@ html
 	script(type="text/javascript" src="js/grid.js")
 	body
 		h1 Grid test
-		.buttons
-			button#left left
-			button#right right
-		.grid-container
+		#cpgrid.grid-container
+			.buttons
+				button#left(disabled) left
+				button#right right
 			.fixed
 				p This columns is fixed
 			.fluid
@@ -17,15 +17,99 @@ html
 					.photo
 						img(src="http://placehold.it/150x150")
 					p el 1
+					a(href="#N",class="prev") prev
+					a(href="#N",class="next") next
 				.element.element-2
 					.photo
 						img(src="http://placehold.it/150x150")
 					p el 2
+					a(href="#N",class="prev") prev
+					a(href="#N",class="next") next
 				.element.element-3
 					.photo
 						img(src="http://placehold.it/150x150")
 					p el 3
+					a(href="#N",class="prev") prev
+					a(href="#N",class="next") next
 				.element.element-4
 					.photo
 						img(src="http://placehold.it/150x150")
 					p el 4
+					a(href="#N",class="prev") prev
+					a(href="#N",class="next") next
+				.element.element-5
+					.photo
+						img(src="http://placehold.it/150x150")
+					p el 5
+					a(href="#N",class="prev") prev
+					a(href="#N",class="next") next
+				.element.element-6
+					.photo
+						img(src="http://placehold.it/150x150")
+					p el 6
+					a(href="#N",class="prev") prev
+					a(href="#N",class="next") next
+				.element.element-7
+					.photo
+						img(src="http://placehold.it/150x150")
+					p el 7
+					a(href="#N",class="prev") prev
+					a(href="#N",class="next") next
+		script.
+			$(document).ready(function () {
+				var options = {
+					$: $,
+					container: '#cpgrid',
+					fixedContainerWidth: 300,
+					elementWidth: 280,
+					elementMarginLeft: 14,
+					displayElements: 4
+				};
+				var grid = new CPGrid(options);
+
+				$("#left").click(function () {
+					var rightbtn = $("#right");
+					var leftbtn = $(this);
+					grid.move('left', function (moving, canKeepClicking) {
+						console.log('moving ', moving);
+						rightbtn.removeAttr('disabled');
+						if (!canKeepClicking) {
+							leftbtn.attr('disabled', 'disabled');
+						} else {
+							leftbtn.removeAttr('disabled');
+						}
+					});
+
+
+				});
+
+				$("#right").click(function () {
+					var rightbtn = $(this);
+					var leftbtn = $("#left");
+					grid.move('right', function (moving, canKeepClicking) {
+						console.log('moving ', moving, canKeepClicking);
+						leftbtn.removeAttr('disabled');
+						if (!canKeepClicking) {
+							rightbtn.attr('disabled', 'disabled');
+						} else {
+							rightbtn.removeAttr('disabled');
+						}
+					});
+				});
+
+				$('.prev').click(function(){
+					var niuorder = parseInt($(this).attr('data-order'));
+					var actualorder = parseInt($(this).closest('.element').css('order'));
+					console.log(actualorder,niuorder);
+					grid.changeColumn(actualorder,niuorder);
+
+				});
+
+				$('.next').click(function () {
+					var niuorder = parseInt($(this).attr('data-order'));
+					var actualorder = parseInt($(this).closest('.element').css('order'));
+					console.log(actualorder, niuorder);
+					grid.changeColumn(actualorder, niuorder);
+
+				});
+			});
